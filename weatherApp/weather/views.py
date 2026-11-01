@@ -3,7 +3,7 @@ import requests
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
-from .models import searchWeather
+#from .models import searchWeather
 
 API_KEY = "038358d882b4533bb3347177bf30c178"
 
@@ -11,13 +11,17 @@ def weathers(request):
 
     weather = None
     error = None
-    searches = searchWeather.objects.order_by('-date')[:5]
+    #searches = searchWeather.objects.order_by('-date')[:5]
+    searches = []
 
     if request.method == 'POST':
         city = request.POST.get('city', '').strip()
 
-        if "clearAll" in request.POST:
+        """if "clearAll" in request.POST:
             searchWeather.objects.all().delete()
+            return redirect("weather")"""
+
+        if "clearAll" in request.POST:
             return redirect("weather")
 
         if city:
@@ -37,6 +41,7 @@ def weathers(request):
                         'description' : data['weather'][0] ['description'].title(),
                         'icon': data['weather'][0]['icon'],
                     }
+                    """
                     searchWeather.objects.create(
                         city = data['name'],
                         temperature = data['main']['temp'],
@@ -44,7 +49,7 @@ def weathers(request):
                         pressure = data['main']['temp'],
                         description = data['weather'][0]['description'].title()
                     )
-                    searches = searchWeather.objects.order_by('-date')[:5]
+                    searches = searchWeather.objects.order_by('-date')[:5]"""
                 else:
                     error = data.get("message","Could Not Fetch Weather Data.")
 
