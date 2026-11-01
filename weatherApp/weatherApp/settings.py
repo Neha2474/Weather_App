@@ -14,12 +14,14 @@ SECRET_KEY = os.environ.get(
     "django-insecure-local-development-key-change-in-production",
 )
 DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
-
+"""
 ALLOWED_HOSTS = [
     ".vercel.app",
     "localhost",
     "127.0.0.1",
-]
+]"""
+
+ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     "django.contrib.admin",
